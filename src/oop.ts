@@ -4,40 +4,36 @@ interface State {
 
 interface CounterEvent {
   kind: string;
+  updateState(state: State): State;
 }
 
 class Increment implements CounterEvent {
   readonly kind = "Increment";
+
+  updateState(state: State) {
+    return { count: state.count + 1 };
+  }
 }
 
 class Reset implements CounterEvent {
   readonly kind = "Reset";
+
+  updateState() {
+    return { count: 0 };
+  }
 }
 
 class SetCount implements CounterEvent {
   readonly kind = "SetCount";
   constructor(readonly count: number) {}
-}
 
-interface State {
-  count: number;
+  updateState() {
+    return { count: this.count };
+  }
 }
 
 function counterReducer(state: State, event: CounterEvent): State {
-  switch (event.kind) {
-    case "Increment":
-      return { count: state.count + 1 };
-
-    case "Reset":
-      return { count: 0 };
-
-    case "SetCount":
-      const setCountEvent = event as SetCount;
-      return { count: setCountEvent.count };
-
-    default:
-      throw Error(`Unexpected event kind: ${event.kind}`);
-  }
+  return event.updateState(state);
 }
 
 // --- EXAMPLE USAGE ---
