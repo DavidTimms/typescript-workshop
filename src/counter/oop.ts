@@ -52,6 +52,7 @@ const events = [
   new Reset(),
   new SetCount(5),
   new Increment(),
+  new Decrement(),
 ];
 
 console.log("End state =", events.reduce(counterReducer, { count: 0 }));

@@ -34,7 +34,11 @@ export function counterReducer(state: State, event: CounterEvent): State {
       return { count: 0 };
 
     case "SetCount":
+      // TS has narrowed the type of "event" to "SetCount", so we can access
+      // the "count" property without a type-cast.
       return { count: event.count };
+
+    // We no longer need the default case because the types ensure exhaustiveness.
   }
 }
 

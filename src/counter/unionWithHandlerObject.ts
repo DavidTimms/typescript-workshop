@@ -1,3 +1,9 @@
+/**
+ * This example uses a mapped type to define a handler object,
+ * allowing each case to be handled by a method. This is similar
+ * to the visitor pattern.
+ */
+
 export interface State {
   count: number;
 }
