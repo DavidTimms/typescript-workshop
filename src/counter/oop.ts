@@ -1,13 +1,21 @@
-interface State {
+/**
+ * This example presents a object-oriented approach to the problem. The
+ * logic for updating the state is encapsulated within the event itself.
+ *
+ * The logic relating to each event is localised, and it is easy to add
+ * new events.
+ */
+
+export interface State {
   count: number;
 }
 
-interface CounterEvent {
+export interface CounterEvent {
   kind: string;
   updateState(state: State): State;
 }
 
-class Increment implements CounterEvent {
+export class Increment implements CounterEvent {
   readonly kind = "Increment";
 
   updateState(state: State) {
@@ -15,7 +23,7 @@ class Increment implements CounterEvent {
   }
 }
 
-class Reset implements CounterEvent {
+export class Reset implements CounterEvent {
   readonly kind = "Reset";
 
   updateState() {
@@ -23,7 +31,7 @@ class Reset implements CounterEvent {
   }
 }
 
-class SetCount implements CounterEvent {
+export class SetCount implements CounterEvent {
   readonly kind = "SetCount";
   constructor(readonly count: number) {}
 
@@ -32,7 +40,7 @@ class SetCount implements CounterEvent {
   }
 }
 
-function counterReducer(state: State, event: CounterEvent): State {
+export function counterReducer(state: State, event: CounterEvent): State {
   return event.updateState(state);
 }
 
@@ -47,5 +55,3 @@ const events = [
 ];
 
 console.log("End state =", events.reduce(counterReducer, { count: 0 }));
-
-export {};

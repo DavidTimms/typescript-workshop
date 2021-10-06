@@ -1,18 +1,18 @@
-interface State {
+export interface State {
   count: number;
 }
 
-type CounterEvent = Increment | Reset | SetCount;
+export type CounterEvent = Increment | Reset | SetCount;
 
-class Increment {
+export class Increment {
   readonly kind = "Increment";
 }
 
-class Reset {
+export class Reset {
   readonly kind = "Reset";
 }
 
-class SetCount {
+export class SetCount {
   readonly kind = "SetCount";
   constructor(readonly count: number) {}
 }
@@ -24,7 +24,7 @@ type CounterEventHandlers<S> = {
   ) => S;
 };
 
-function createCounterEventReducer<S>(
+export function createCounterEventReducer<S>(
   handlers: CounterEventHandlers<S>
 ): (state: S, event: CounterEvent) => S {
   return (state, event) => {
@@ -36,7 +36,7 @@ function createCounterEventReducer<S>(
   };
 }
 
-const counterReducer = createCounterEventReducer<State>({
+export const counterReducer = createCounterEventReducer<State>({
   handleIncrement(state) {
     return { count: state.count + 1 };
   },
@@ -59,5 +59,3 @@ const events = [
 ];
 
 console.log("End state =", events.reduce(counterReducer, { count: 0 }));
-
-export {};

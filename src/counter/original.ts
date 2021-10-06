@@ -1,29 +1,25 @@
-interface State {
+export interface State {
   count: number;
 }
 
-interface CounterEvent {
+export interface CounterEvent {
   kind: string;
 }
 
-class Increment implements CounterEvent {
+export class Increment implements CounterEvent {
   readonly kind = "Increment";
 }
 
-class Reset implements CounterEvent {
+export class Reset implements CounterEvent {
   readonly kind = "Reset";
 }
 
-class SetCount implements CounterEvent {
+export class SetCount implements CounterEvent {
   readonly kind = "SetCount";
   constructor(readonly count: number) {}
 }
 
-interface State {
-  count: number;
-}
-
-function counterReducer(state: State, event: CounterEvent): State {
+export function counterReducer(state: State, event: CounterEvent): State {
   switch (event.kind) {
     case "Increment":
       return { count: state.count + 1 };
@@ -51,5 +47,3 @@ const events = [
 ];
 
 console.log("End state =", events.reduce(counterReducer, { count: 0 }));
-
-export {};

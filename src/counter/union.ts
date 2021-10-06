@@ -1,23 +1,31 @@
-interface State {
+/**
+ * This example presents a approach using a union type. It is very close
+ * to the original implementation.
+ *
+ * The logic relating to each operation is localised, and it is easy to
+ * add new events.
+ */
+
+export interface State {
   count: number;
 }
 
-type CounterEvent = Increment | Reset | SetCount;
+export type CounterEvent = Increment | Reset | SetCount;
 
-class Increment {
+export class Increment {
   readonly kind = "Increment";
 }
 
-class Reset {
+export class Reset {
   readonly kind = "Reset";
 }
 
-class SetCount {
+export class SetCount {
   readonly kind = "SetCount";
   constructor(readonly count: number) {}
 }
 
-function counterReducer(state: State, event: CounterEvent): State {
+export function counterReducer(state: State, event: CounterEvent): State {
   switch (event.kind) {
     case "Increment":
       return { count: state.count + 1 };
@@ -41,5 +49,3 @@ const events = [
 ];
 
 console.log("End state =", events.reduce(counterReducer, { count: 0 }));
-
-export {};
