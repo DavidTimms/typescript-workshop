@@ -24,12 +24,12 @@ const statsReducer = createCounterEventReducer<Statistics>({
 
 // --- EXAMPLE USAGE ---
 
-const events = [
-  new Increment(),
-  new Increment(),
-  new Reset(),
-  new SetCount(5),
-  new Increment(),
+const events: CounterEvent[] = [
+  { kind: "Increment" },
+  { kind: "Increment" },
+  { kind: "Reset" },
+  { kind: "SetCount", count: 5 },
+  { kind: "Increment" },
 ];
 
 console.log("Statistics =", events.reduce(statsReducer, {}));

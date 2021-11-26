@@ -7,22 +7,22 @@
  */
 
 export interface State {
-  count: number;
+  readonly count: number;
 }
 
 export type CounterEvent = Increment | Reset | SetCount;
 
-export class Increment {
-  readonly kind = "Increment";
+export interface Increment {
+  readonly kind: "Increment";
 }
 
-export class Reset {
-  readonly kind = "Reset";
+export interface Reset {
+  readonly kind: "Reset";
 }
 
-export class SetCount {
-  readonly kind = "SetCount";
-  constructor(readonly count: number) {}
+export interface SetCount {
+  readonly kind: "SetCount";
+  readonly count: number;
 }
 
 export function counterReducer(state: State, event: CounterEvent): State {
@@ -44,12 +44,12 @@ export function counterReducer(state: State, event: CounterEvent): State {
 
 // --- EXAMPLE USAGE ---
 
-const events = [
-  new Increment(),
-  new Increment(),
-  new Reset(),
-  new SetCount(5),
-  new Increment(),
+const events: CounterEvent[] = [
+  { kind: "Increment" },
+  { kind: "Increment" },
+  { kind: "Reset" },
+  { kind: "SetCount", count: 5 },
+  { kind: "Increment" },
 ];
 
 console.log("End state =", events.reduce(counterReducer, { count: 0 }));
